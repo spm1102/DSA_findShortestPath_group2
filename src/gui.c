@@ -99,14 +99,29 @@ void GUI_findShortestPath(cell_t **grid, bool *isAlgorithmRunning)
         grid[i][j].IS_inPath = true;
     }
 
-    printf("\nShortest path from vertex (%d) to (%d): ", source, dest);
-    printf("(%d) ", source);
+    int* grid_idx = (int*)malloc(NUM_LOCATIONS * sizeof(int));
+    if(!grid_idx){
+        return;
+    }
+    grid_idx[0] = 34;
+    grid_idx[1] = 79;
+    grid_idx[2] = 10;
+    grid_idx[3] = 37;
+    grid_idx[4] = 71;
+    grid_idx[5] = 32;
+    grid_idx[6] = 4;
+    grid_idx[7] = 95;
+    grid_idx[8] = 65;
+    grid_idx[9] = 39;
+
+    printf("\nShortest path from vertex (%d) to (%d): ", grid_2_symbol(grid_idx, source), grid_2_symbol(grid_idx, dest));
+    printf("(%d) ", grid_2_symbol(grid_idx, source));
     for(int i = pathLength - 1; i >= 0; i--){
-        printf("%d ", path[i]);
+        printf("(%d) ", grid_2_symbol(grid_idx, path[i]));
     }
     printf("\n");
     double sum_dis = p_graph->vertices[dest].total_dist;
-    printf(" Sum of distance: %.1lf km\n", sum_dis);
+    printf("Sum of distance: %.1lf km\n", sum_dis);
     GRAPH_Free(p_graph);
 }
 

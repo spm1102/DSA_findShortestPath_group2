@@ -18,4 +18,5 @@ typedef struct {
 } position_t;
 
 position_t* convertToGridCoordinate(double lat, double lon, position_t* pos);
+int grid_2_symbol (int* grid_idx, int vertex);
 #endif

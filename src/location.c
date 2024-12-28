@@ -19,3 +19,10 @@ position_t* convertToGridCoordinate(double lat, double lon, position_t* pos) {
 
     return pos;
 }
+
+    
+int grid_2_symbol (int* grid_idx, int vertex) {
+    for (int i=0; i<10; i++) {
+        if (vertex == grid_idx[i]) return i;
+    }
+}
