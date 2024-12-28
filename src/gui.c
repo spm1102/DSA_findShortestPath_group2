@@ -57,6 +57,7 @@ void GUI_findShortestPath(cell_t **grid, bool *isAlgorithmRunning)
     //     BFS(p_graph, grid, source, dest, &GUI_displayPath);
     // }
 
+    bool IS_Reset = false;
     // foward
     if (IsKeyDown(KEY_TWO))
     {
@@ -71,6 +72,7 @@ void GUI_findShortestPath(cell_t **grid, bool *isAlgorithmRunning)
     else if (IsKeyDown(KEY_R))
     {
         GRID_Reset(grid);
+        IS_Reset = true;
     }
 
     // track the found shortest path
@@ -114,23 +116,24 @@ void GUI_findShortestPath(cell_t **grid, bool *isAlgorithmRunning)
     grid_idx[8] = 65;
     grid_idx[9] = 39;
 
-    printf("\nShortest path from vertex (%d) to (%d): ", grid_2_symbol(grid_idx, source), grid_2_symbol(grid_idx, dest));
-    printf("(%d) ", grid_2_symbol(grid_idx, source));
-    for(int i = pathLength - 1; i >= 0; i--){
-        printf("(%d) ", grid_2_symbol(grid_idx, path[i]));
+    if(!IS_Reset){
+        printf("\nShortest path from vertex (%d) to (%d): ", grid_2_symbol(grid_idx, source), grid_2_symbol(grid_idx, dest));
+        printf("(%d) ", grid_2_symbol(grid_idx, source));
+        for(int i = pathLength - 1; i >= 0; i--){
+            printf("(%d) ", grid_2_symbol(grid_idx, path[i]));
+        }
+        printf("\n");
+        double sum_dis = p_graph->vertices[dest].total_dist;
+        printf("Sum of distance: %.1lf km\n", sum_dis);
     }
-    printf("\n");
-    double sum_dis = p_graph->vertices[dest].total_dist;
-    printf("Sum of distance: %.1lf km\n", sum_dis);
+    else printf("The grid is reset!");
+    free(grid_idx);
     GRAPH_Free(p_graph);
 }
 
 void DrawGradientLine(int srcX, int srcY, int destX, int destY)
 {
     int numSegments = 10;
-
-    // src is the darker one
-    // dest is the lighter one
     float dx = (destX - srcX) / (float)numSegments;
     float dy = (destY - srcY) / (float)numSegments;
 
